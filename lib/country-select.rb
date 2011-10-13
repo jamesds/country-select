@@ -15,6 +15,9 @@ module ActionView
         country_options = ""
 
         if priority_countries
+          if (unlisted = priority_countries - COUNTRIES).any?
+            raise RuntimeError.new("Supplied priority countries are not in the main list: #{unlisted}")
+          end
           country_options += options_for_select(priority_countries, selected)
           country_options += "<option value=\"\" disabled=\"disabled\">-------------</option>\n"
         end
