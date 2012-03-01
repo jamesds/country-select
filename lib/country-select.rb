@@ -20,12 +20,14 @@ module ActionView
           end
           country_options += options_for_select(priority_countries, selected)
           country_options += "<option value=\"\" disabled=\"disabled\">-------------</option>\n"
-					
+
           # prevents selected from being included twice in the HTML which causes
           # some browsers to select the second selected option (not priority)
           # which makes it harder to select an alternative priority country
           selected = nil if priority_countries.include?(selected)
         end
+
+        country_options = country_options.html_safe if country_options.respond_to?(:html_safe)
 
         return country_options + options_for_select(COUNTRIES, selected)
       end
@@ -34,7 +36,7 @@ module ActionView
       COUNTRIES = ["Afghanistan", "Aland Islands", "Albania", "Algeria", "American Samoa", "Andorra", "Angola",
         "Anguilla", "Antarctica", "Antigua And Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria",
         "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin",
-        "Bermuda", "Bhutan", "Bolivia, Plurinational State of", "Bonaire, Sint Eustatius and Saba", "Bosnia and Herzegovina", 
+        "Bermuda", "Bhutan", "Bolivia, Plurinational State of", "Bonaire, Sint Eustatius and Saba", "Bosnia and Herzegovina",
 				"Botswana", "Bouvet Island", "Brazil",
         "British Indian Ocean Territory", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia",
         "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile", "China",
@@ -71,7 +73,7 @@ module ActionView
 				"Venezuela, Bolivarian Republic of", "Viet Nam", "Virgin Islands, British", "Virgin Islands, U.S.",
 				"Wallis and Futuna", "Western Sahara", "Yemen", "Zambia", "Zimbabwe"] unless const_defined?("COUNTRIES")
     end
-    
+
     class InstanceTag
       def to_country_select_tag(priority_countries, options, html_options)
         html_options = html_options.stringify_keys
@@ -85,7 +87,7 @@ module ActionView
         )
       end
     end
-    
+
     class FormBuilder
       def country_select(method, priority_countries = nil, options = {}, html_options = {})
         @template.country_select(@object_name, method, priority_countries, options.merge(:object => @object), html_options)
