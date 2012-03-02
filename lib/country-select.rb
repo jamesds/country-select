@@ -81,11 +81,10 @@ module ActionView
           add_options(
             country_options_for_select(value, priority_countries),
             options, value
-          ), html_options
+          ).html_safe, html_options
         )
       end
     end
-    
     class FormBuilder
       def country_select(method, priority_countries = nil, options = {}, html_options = {})
         @template.country_select(@object_name, method, priority_countries, options.merge(:object => @object), html_options)
