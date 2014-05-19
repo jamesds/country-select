@@ -92,6 +92,7 @@ module ActionView
         "Côte d'Ivoire",
         "Croatia",
         "Cuba",
+        "Curaçao",
         "Cyprus",
         "Czech Republic",
         "Denmark",
