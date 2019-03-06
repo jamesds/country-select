@@ -35,6 +35,17 @@ Simple use supplying model and attribute as parameters:
 Supplying priority countries to be placed at the top of the list:
 
     country_select("user", "country_name", [ "United Kingdom", "France", "Germany" ])
+    
+Supplying additiontal options:
+
+    country_select("user", "country_name", [ "United Kingdom", "France", "Germany" ], {:prompt => "Choose Country"}, {:class => "country-chooser"})
+
+Using together with `form_for` or `fields_for`:
+
+    <%= form_for @user do |f| %>
+      <%= f.country_select("country_name") %>
+    <% end %>
+      
 
 ## Version History
 

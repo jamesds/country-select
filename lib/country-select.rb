@@ -5,7 +5,11 @@ module ActionView
     module FormOptionsHelper
       # Return select and option tags for the given object and method, using country_options_for_select to generate the list of option tags.
       def country_select(object, method, priority_countries = nil, options = {}, html_options = {})
-        InstanceTag.new(object, method, self, options.delete(:object)).to_country_select_tag(priority_countries, options, html_options)
+        if Rails.version.starts_with?("3")
+          InstanceTag.new(object, method, self, options.delete(:object)).to_country_select_tag(priority_countries, options, html_options)
+        else
+          Tags::CountrySelect.new(object, method, self, options).to_country_select_tag(priority_countries, options, html_options)
+        end
       end
       # Returns a string of option tags for pretty much any country in the world. Supply a country name as +selected+ to
       # have it marked as the selected option tag. You can also supply an array of countries as +priority_countries+, so
@@ -204,7 +208,7 @@ module ActionView
         "Oman",
         "Pakistan",
         "Palau",
-        "Palestinian Territory, Occupied",
+        "Palestine, State of",
         "Panama",
         "Papua New Guinea",
         "Paraguay",
@@ -287,11 +291,10 @@ module ActionView
       ] unless const_defined?("COUNTRIES")
     end
 
-    class InstanceTag
+    module CountrySelectTag
       def to_country_select_tag(priority_countries, options, html_options)
         html_options = html_options.stringify_keys
         add_default_name_and_id(html_options)
-        value = value(object)
         content_tag("select",
 
           add_options(
@@ -299,6 +302,20 @@ module ActionView
             options, value
           ), html_options
         )
+      end
+    end
+
+    # For Rails 4.x / 5.x
+    if Rails.version.to_i >= 4
+      module Tags
+        class CountrySelect < Base
+          include CountrySelectTag
+        end
+      end
+    else
+      # For Rails 3.x
+      class InstanceTag
+        include CountrySelectTag
       end
     end
 
