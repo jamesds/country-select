@@ -170,7 +170,7 @@ module ActionView
         "Lithuania",
         "Luxembourg",
         "Macao",
-        "Macedonia, Republic Of",
+        "Republic of North Macedonia",
         "Madagascar",
         "Malawi",
         "Malaysia",
