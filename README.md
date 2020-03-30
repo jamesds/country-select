@@ -6,6 +6,21 @@ Provides a simple helper to get a HTML select list of countries.  The list of co
 
 Users are strongly advised to evaluate the suitability of this list given their user base.
 
+## Release Process
+
+This Gem is owned and managed by the Core Services team. Released to [github packages](https://github.com/fac/country-select/packages).
+
+Packaging is handled by Jenkins, to push a new release:
+
+* Create a PR that increases the version in `version.rb`.
+* Get that reviewed and approved.
+* Merge, on successful build Jenkins will package the gem and release it to github packages.
+* Update the bundles for any applications using this gem.
+
+You can track builds in slack, [#country-select-ci](https://freeagent.slack.com/channels/country-select-ci). Track releases in [#gem-release](https://freeagent.slack.com/channels/gem-release).
+
+See [Internal Gems](https://www.notion.so/freeagent/Internal-gems) for more detail.
+
 ## Installation
 
 Install as a gem using
